@@ -5,6 +5,11 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:id="@+id/parent"
+        android:background="@color/black"
+        android:layout_height="match_parent">
     <EditText
         android:id="@+id/edit"
         android:layout_width="match_parent"
@@ -15,6 +20,7 @@
         android:textColor="@color/white"
         android:text="Hello World!"
         android:importantForAutofill="no" />
+    </RelativeLayout>
 
     <Button
         android:id="@+id/save"
