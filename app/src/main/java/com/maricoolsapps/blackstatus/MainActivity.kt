@@ -6,41 +6,51 @@ import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Paint
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
-import android.text.StaticLayout
-import android.text.TextPaint
-import android.util.Log
+import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RelativeLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
+import com.google.firebase.analytics.FirebaseAnalytics
 import java.io.ByteArrayOutputStream
-
 
 class MainActivity : AppCompatActivity() {
 
      var img: Bitmap? = null
-    lateinit var edit:EditText
+    lateinit var edit: EditText
 
+    lateinit var toolbar: Toolbar
     lateinit var parent:RelativeLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setSupportActionBar(toolbar)
+        title = "Black Status"
 
-         edit = findViewById<EditText>(R.id.edit)
+        toolbar = findViewById(R.id.toolbar)
+         edit = findViewById(R.id.edit)
         parent = findViewById(R.id.parent)
         val save = findViewById<Button>(R.id.save)
 
         save.setOnClickListener {
+            toolbar.visibility = View.GONE
+            save.visibility = View.GONE
+            edit.isFocusable = false
              img = getBitmapFromView()
+            toolbar.visibility = View.VISIBLE
+            save.visibility = View.VISIBLE
+
             if (checkPermissionREAD_EXTERNAL_STORAGE()) {
                 val bytes = ByteArrayOutputStream()
                 img?.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
@@ -51,41 +61,19 @@ class MainActivity : AppCompatActivity() {
                 waIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
                 startActivity(waIntent)
             } else {
-                Log.d("TAg", "Error")
+
             }
         }
         }
 
     private fun getBitmapFromView(): Bitmap? {
-
-      /*  val paint = Paint(Paint.ANTI_ALIAS_FLAG)
-        paint.style = Paint.Style.FILL
-        paint.color = Color.BLACK
-*/
-        val bitmap = Bitmap.createBitmap(parent.width, parent.height, Bitmap.Config.ARGB_8888)
+        val v1: View = window.decorView.rootView
+        val bitmap = Bitmap.createBitmap(v1.width, v1.height, Bitmap.Config.ARGB_8888)
         val canvas = Canvas(bitmap)
         val bgDrawable = parent.background
         if (bgDrawable != null) bgDrawable.draw(canvas)
         else canvas.drawColor(Color.WHITE)
-        parent.draw(canvas)
-
-        /* canvas.drawPaint(paint)
-
-         val size = 4
-         val scale = resources.displayMetrics.density
-         val correctSize = size * scale + 0.5f
-         val paint2 = TextPaint(Paint.LINEAR_TEXT_FLAG or Paint.ANTI_ALIAS_FLAG)
-
-         paint2.textSize = correctSize
-        // paint2.isAntiAlias = true
-         paint2.color = Color.WHITE
-         val staticLayout = StaticLayout.Builder
-                 .obtain(text, 0, 12, paint2, 100)
-                 .build()
-         //val new_canvas = Canvas(bit)
-         //paint2.style = Paint.Style.STROKE
-         staticLayout.draw(canvas)
-         //canvas.drawText(text, 50F, 50f, paint2)*/
+        v1.draw(canvas)
         return bitmap
     }
 
@@ -94,8 +82,7 @@ val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
 fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
     val currentAPIVersion = Build.VERSION.SDK_INT
     return if (currentAPIVersion >= Build.VERSION_CODES.M) {
-        if (ContextCompat.checkSelfPermission(this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(this,
                         Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             if (ActivityCompat.shouldShowRequestPermissionRationale(
                             this,
@@ -103,11 +90,12 @@ fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
                             this,
                             Manifest.permission.WRITE_EXTERNAL_STORAGE)) {
                 val list = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                showDialog("External storage",
+                showDialog("Storage",
                         list)
             } else {
-                ActivityCompat
-                        .requestPermissions(this, arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                ActivityCompat.requestPermissions(this,
+                                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE,
+                                        Manifest.permission.WRITE_EXTERNAL_STORAGE),
                                 MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE)
             }
             false
@@ -133,4 +121,15 @@ fun showDialog(msg: String,
     val alert: AlertDialog = alertBuilder.create()
     alert.show()
 }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                Toast.makeText(this@MainActivity, "Permission Granted", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(this@MainActivity, "Permission Denied", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
    }
