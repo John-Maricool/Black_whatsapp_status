@@ -35,12 +35,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
-        title = "Black Status"
+
 
         toolbar = findViewById(R.id.toolbar)
          edit = findViewById(R.id.edit)
         parent = findViewById(R.id.parent)
+        setSupportActionBar(toolbar)
+        title = "Black Status"
         val save = findViewById<Button>(R.id.save)
 
         save.setOnClickListener {

@@ -28,22 +28,23 @@
         android:gravity="center_vertical|center_horizontal"
         android:hint="@string/write_something"
         android:maxLength="500"
+        android:fontFamily="@font/andada"
         android:maxLines="20"
-        android:autofillHints="Write"
-        android:inputType="textLongMessage"
+        android:inputType="textMultiLine"
         android:padding="@dimen/dimen_8"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
-        android:textSize="@dimen/dimen_20" />
+        android:textSize="@dimen/dimen_30" />
 
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:textSize="@dimen/dimen_20"
+        android:textSize="@dimen/dimen_30"
         android:textStyle="bold"
         android:padding="@dimen/dimen_12"
+        android:fontFamily="@font/andada"
         android:layout_marginBottom="@dimen/dimen_16"
         android:drawableStart="@drawable/ic_baseline_send_24"
         android:background="@drawable/corners"
