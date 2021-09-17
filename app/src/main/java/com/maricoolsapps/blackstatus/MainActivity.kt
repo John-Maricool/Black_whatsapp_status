@@ -11,10 +11,7 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.view.View
-import android.widget.Button
-import android.widget.EditText
-import android.widget.RelativeLayout
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -30,24 +27,23 @@ class MainActivity : AppCompatActivity() {
     lateinit var edit: EditText
 
     lateinit var toolbar: Toolbar
-    lateinit var parent:RelativeLayout
+    lateinit var parent:ConstraintLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         toolbar = findViewById(R.id.toolbar)
          edit = findViewById(R.id.edit)
         parent = findViewById(R.id.parent)
         setSupportActionBar(toolbar)
         title = "Black Status"
-        val save = findViewById<Button>(R.id.save)
+        val save = findViewById<ImageView>(R.id.save)
+
 
         save.setOnClickListener {
             toolbar.visibility = View.GONE
             save.visibility = View.GONE
-            edit.isFocusable = false
              img = getBitmapFromView()
             toolbar.visibility = View.VISIBLE
             save.visibility = View.VISIBLE
