@@ -11,9 +11,14 @@
     android:background="@color/black"
     tools:context=".MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/title"
+        android:textSize="30sp"
+        android:textColor="@color/white"
+        android:layout_margin="20dp"
+        android:textStyle="normal|bold"
+        android:text="@string/black_status"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
         android:background="@color/black"
@@ -47,7 +52,7 @@
         android:textSize="@dimen/dimen_30"
         app:linesLimit="5"
          app:textScale="0.80"
-         app:animationDuration="300"
+         app:animationDuration="10000"
         app:autoSizeTextType="uniform"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

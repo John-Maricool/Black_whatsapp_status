@@ -27,19 +27,20 @@ class MainActivity : AppCompatActivity() {
      var img: Bitmap? = null
     lateinit var edit: EditText
     var color_click = 0
-    val colors = listOf(R.color.white,
+
+    val colors = listOf(
+            R.color.white,
         R.color.green,
         R.color.red,
         R.color.teal_200,
         R.color.teal_700,
         R.color.grey,
-        R.color.l_blue,
         R.color.d_blue,
         R.color.l_purple,
         R.color.orange,
         R.color.yellow)
 
-    lateinit var toolbar: Toolbar
+    lateinit var title: TextView
     lateinit var parent:ConstraintLayout
     lateinit var color_btn: ImageView
 
@@ -47,12 +48,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        toolbar = findViewById(R.id.toolbar)
+        title = findViewById(R.id.title)
          edit = findViewById(R.id.edit)
         parent = findViewById(R.id.parent)
         color_btn = findViewById(R.id.text_color_change_btn)
-        setSupportActionBar(toolbar)
-        title = "Black Status"
         val save = findViewById<ImageView>(R.id.save)
         edit.typeface = ResourcesCompat.getFont(this, R.font.andada)
 
@@ -65,12 +64,12 @@ class MainActivity : AppCompatActivity() {
         }
 
         save.setOnClickListener {
-                toolbar.visibility = View.GONE
+                title.visibility = View.GONE
                 save.visibility = View.GONE
                 color_btn.visibility = View.GONE
                 img = getBitmapFromView()
             color_btn.visibility = View.VISIBLE
-                toolbar.visibility = View.VISIBLE
+                title.visibility = View.VISIBLE
                 save.visibility = View.VISIBLE
 
                 if (checkPermissionREAD_EXTERNAL_STORAGE()) {
@@ -88,9 +87,8 @@ class MainActivity : AppCompatActivity() {
                     waIntent.putExtra(Intent.EXTRA_STREAM, imageUri)
                     startActivity(waIntent)
                 } else {
-
                 }
-        }
+            }
         }
 
     private fun getBitmapFromView(): Bitmap? {
@@ -109,7 +107,8 @@ val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
 fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
     val currentAPIVersion = Build.VERSION.SDK_INT
     return if (currentAPIVersion >= Build.VERSION_CODES.M) {
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED || ContextCompat.checkSelfPermission(
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
+                ContextCompat.checkSelfPermission(
                 this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
             ) != PackageManager.PERMISSION_GRANTED) {
@@ -147,10 +146,7 @@ fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
     }
 }
 
-fun showDialog(
-    msg: String,
-    permission: Array<String>
-) {
+fun showDialog(msg: String, permission: Array<String>) {
     val alertBuilder: AlertDialog.Builder = AlertDialog.Builder(this)
     alertBuilder.setCancelable(true)
     alertBuilder.setTitle("Permission necessary")
