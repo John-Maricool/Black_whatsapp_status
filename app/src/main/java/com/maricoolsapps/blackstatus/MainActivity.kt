@@ -14,7 +14,6 @@ import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
@@ -53,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         parent = findViewById(R.id.parent)
         color_btn = findViewById(R.id.text_color_change_btn)
         val save = findViewById<ImageView>(R.id.save)
-        edit.typeface = ResourcesCompat.getFont(this, R.font.andada)
 
         color_btn.setOnClickListener {
                 edit.setTextColor(resources.getColor(colors[color_click], null))
@@ -104,7 +102,7 @@ class MainActivity : AppCompatActivity() {
 
 val MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123
 
-fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
+private fun checkPermissionREAD_EXTERNAL_STORAGE(): Boolean {
     val currentAPIVersion = Build.VERSION.SDK_INT
     return if (currentAPIVersion >= Build.VERSION_CODES.M) {
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED ||
