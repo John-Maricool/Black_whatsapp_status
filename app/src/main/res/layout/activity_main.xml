@@ -1,85 +1,116 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
-    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:descendantFocusability="afterDescendants"
+    android:layout_gravity="center"
     android:background="@color/black"
+    android:descendantFocusability="afterDescendants"
     tools:context=".MainActivity">
 
     <TextView
         android:id="@+id/title"
-        android:textSize="30sp"
-        android:textColor="@color/white"
-        android:layout_margin="20dp"
-        android:textStyle="normal"
-        android:text="@string/black_status"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_height="?attr/actionBarSize"
         android:background="@color/black"
+        android:text="@string/black_status"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/white" />
 
-    <com.txusballesteros.AutoscaleEditText
-        android:id="@+id/edit"
-        android:layout_width="0dp"
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/text_size_change"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginEnd="@dimen/dimen_8"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/edi"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_text" />
+
+<!--    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="181dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:gravity="center|center_vertical"
-        android:hint="@string/write_something"
+        app:values="@array/text_size_values"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_marginEnd="@dimen/dimen_8"
+        android:value="25"
+        android:valueFrom="0"
+        android:valueTo="100"
+        app:layout_constraintBottom_toBottomOf="@+id/title"
+        app:layout_constraintEnd_toEndOf="@+id/edi"
+        app:layout_constraintStart_toEndOf="@+id/title"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        app:thumbColor="@color/yellow"
+        app:tickColor="@color/grey"
+        app:trackColorActive="@color/white"
+        app:trackColorInactive="@color/grey"
+        tools:targetApi="n" />-->
+
+    <com.txusballesteros.AutoscaleEditText
+        android:id="@+id/edi"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:background="@color/black"
+        android:gravity="center"
+        android:hint="@string/write_something"
         android:inputType="textMultiLine|textAutoComplete|textNoSuggestions"
-        android:maxLength="450"
-        android:textColorHighlight="@color/grey"
-        android:textCursorDrawable="@color/white"
-        android:maxLines="20"
+        android:lines="25"
+        android:scrollbarStyle="outsideInset"
         android:textAlignment="gravity"
         android:textColor="@color/white"
+        android:textColorHighlight="@color/grey"
         android:textColorHint="@color/grey"
-        android:textSize="@dimen/dimen_30"
-        app:linesLimit="5"
-         app:textScale="0.80"
-         app:animationDuration="5000"
+        android:textCursorDrawable="@color/white"
+        android:textSize="25sp"
+        app:animationDuration="10000"
         app:autoSizeTextType="uniform"
-        android:scrollbarStyle="insideInset"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/text_color_change_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:linesLimit="9"
+        app:textScale="0.70" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/save"
         android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_height="?attr/actionBarSize"
         android:layout_centerVertical="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginEnd="@dimen/dimen_8"
         android:gravity="center_horizontal"
         android:padding="@dimen/dimen_12"
         android:src="@drawable/ic_baseline_send_24"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit"
-        app:layout_constraintVertical_bias="0.875"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
-    <ImageView
+    <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/text_color_change_btn"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="@dimen/dimen_16"
-        android:layout_marginBottom="@dimen/dimen_16"
+        android:layout_width="40dp"
+        android:layout_height="?attr/actionBarSize"
+        android:layout_marginStart="@dimen/dimen_8"
+        android:layout_marginBottom="@dimen/dimen_8"
         android:src="@drawable/ic_color_lens"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edit"
-        app:layout_constraintVertical_bias="0.875"/>
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:background="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
